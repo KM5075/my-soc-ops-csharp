@@ -1,0 +1,33 @@
+# EditorConfig for C# projects
+# https://editorconfig.org
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.cs]
+# Unused variables / members
+dotnet_code_quality_unused_parameters = all:warning
+dotnet_diagnostic.IDE0051.severity = warning
+dotnet_diagnostic.IDE0052.severity = warning
+dotnet_diagnostic.IDE0059.severity = warning
+dotnet_diagnostic.IDE0060.severity = warning
+dotnet_diagnostic.CS0168.severity = warning
+dotnet_diagnostic.CS0219.severity = warning
+
+# Async/await usage
+csharp_style_prefer_async_over_sync = true:warning
+dotnet_diagnostic.CS1998.severity = warning
+dotnet_diagnostic.CS4014.severity = warning
+
+[*.{json,yml,yaml}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
