@@ -4,23 +4,22 @@
 
 Before finalizing any change:
 
+- [ ] Lint passes (run the repo lint task/command when available)
 - [ ] `dotnet build SocOps/SocOps.csproj` succeeds
 - [ ] `dotnet test` is run when tests exist (or when test projects are added)
-- [ ] No obvious runtime regressions in the main game flow (`Home` -> start game -> mark squares)
-- [ ] Keep changes scoped; avoid refactoring unrelated files
 
 ## Project Context
 
-**Soc Ops** is a Blazor WebAssembly social bingo app built on .NET 10.
-The core user flow is on `SocOps/Pages/Home.razor`, which switches between start and game screens.
+Soc Ops is a Blazor WebAssembly social bingo app on .NET 10.
+Primary flow: `Home` -> start game -> mark squares.
 
 ## Architecture Map
 
-- `SocOps/Components/`: UI components (`StartScreen`, `GameScreen`, `BingoBoard`, `BingoSquare`, `BingoModal`)
-- `SocOps/Services/`: game logic and state (`BingoLogicService`, `BingoGameService`)
-- `SocOps/Models/`: domain models (`GameState`, `BingoLine`, `BingoSquareData`)
-- `SocOps/Data/Questions.cs`: question source data
-- `SocOps/wwwroot/css/app.css`: utility-first CSS classes used across components
+- `SocOps/Components/`: UI (`StartScreen`, `GameScreen`, `BingoBoard`, `BingoSquare`, `BingoModal`)
+- `SocOps/Services/`: state + logic (`BingoGameService`, `BingoLogicService`)
+- `SocOps/Models/`: domain models
+- `SocOps/Data/Questions.cs`: question data
+- `SocOps/wwwroot/css/app.css`: shared utility CSS
 
 ## Preferred Commands
 
@@ -31,8 +30,7 @@ dotnet run --project SocOps/SocOps.csproj
 
 ## Coding & Styling Expectations
 
-- Follow existing Blazor and C# conventions in this repo
-- Preserve event-driven state updates from `BingoGameService`
-- Prefer existing CSS utility classes from `wwwroot/css/app.css`
-- Add comments only when logic is non-obvious
-- Avoid introducing new dependencies unless clearly justified
+- Follow existing Blazor/C# conventions
+- Preserve event-driven updates from `BingoGameService`
+- Reuse utility classes in `wwwroot/css/app.css`
+- Keep changes scoped; avoid unrelated refactors/dependencies
