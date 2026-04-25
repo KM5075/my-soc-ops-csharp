@@ -1,26 +1,94 @@
-<div class="theme-shell flex flex-col items-center justify-center min-h-full p-6">
+<div class="theme-shell landing-shell flex flex-col justify-center min-h-full p-6">
     <div class="theme-grid-overlay" aria-hidden="true"></div>
+    <div class="landing-radar" aria-hidden="true"></div>
 
-    <div class="text-center max-w-sm start-stage w-full">
-        <p class="control-kicker mb-3">MISSION CONTROL</p>
-        <h1 class="mission-title mb-2">Soc Ops</h1>
-        <p class="signal-subtitle mb-8">Social Bingo</p>
+    <section class="landing-stage w-full mx-auto">
+        <div class="landing-copy start-stage">
+            <div class="landing-badge mb-4">
+                <span class="status-dot" aria-hidden="true"></span>
+                Live room icebreaker
+            </div>
 
-        <div class="panel-card p-6 mb-8">
-            <h2 class="font-semibold mb-3">Operational Brief</h2>
-            <ul class="text-left text-sm space-y-2 rules-list">
-                <li>Find people who match each prompt.</li>
-                <li>Tap a square to mark a confirmed contact.</li>
-                <li>Secure five in a row to complete the mission.</li>
-            </ul>
+            <p class="control-kicker mb-3">MISSION CONTROL</p>
+            <h1 class="mission-title landing-title mb-4">Soc Ops</h1>
+            <p class="landing-deck mb-4">
+                Turn awkward intros into a live social mission board with quick wins,
+                easy prompts, and a clear reason to talk to everyone in the room.
+            </p>
+
+            <div class="landing-metrics mb-6" aria-label="Game highlights">
+                <div class="metric-chip">
+                    <strong>25</strong>
+                    <span>conversation prompts</span>
+                </div>
+                <div class="metric-chip">
+                    <strong>5 in a row</strong>
+                    <span>to lock bingo</span>
+                </div>
+                <div class="metric-chip">
+                    <strong>2 min</strong>
+                    <span>to start playing</span>
+                </div>
+            </div>
+
+            <div class="landing-actions mb-6">
+                <button
+                    @onclick="OnStart"
+                    class="launch-button landing-cta px-8 py-4 text-lg">
+                    Start the mission
+                </button>
+                <p class="cta-note">Best for meetups, workshops, and team socials.</p>
+            </div>
         </div>
 
-        <button
-            @onclick="OnStart"
-            class="launch-button w-full py-4 px-8 text-lg">
-            Initiate Round
-        </button>
-    </div>
+        <div class="landing-preview start-stage" aria-label="Gameplay preview">
+            <div class="panel-card preview-frame p-4 mb-4">
+                <div class="preview-head mb-4">
+                    <div>
+                        <p class="preview-label">Tonight's objective</p>
+                        <h2 class="preview-title">Make every square start a conversation</h2>
+                    </div>
+                    <div class="preview-pill">Board ready</div>
+                </div>
+
+                <div class="preview-grid mb-4" aria-hidden="true">
+                    <div class="preview-square">Has hosted a workshop</div>
+                    <div class="preview-square preview-square-marked">Works in security</div>
+                    <div class="preview-square">Can recommend a podcast</div>
+                    <div class="preview-square">Has shipped on Friday</div>
+                    <div class="preview-square">Knows a CLI trick</div>
+                    <div class="preview-square">Has a side project</div>
+                    <div class="preview-square">Met the organizer before</div>
+                    <div class="preview-square preview-square-free">Free intel</div>
+                    <div class="preview-square">Speaks 2+ languages</div>
+                </div>
+
+                <div class="signal-band">
+                    Mark confirmed matches. Complete a line. Keep moving.
+                </div>
+            </div>
+
+            <div class="landing-flow">
+                <article class="flow-card panel-card p-4">
+                    <span class="flow-step">01</span>
+                    <h3>Scan the room</h3>
+                    <p>Pick an easy square and use it as your opener.</p>
+                </article>
+
+                <article class="flow-card panel-card p-4">
+                    <span class="flow-step">02</span>
+                    <h3>Confirm a match</h3>
+                    <p>Tap the square only after you actually meet someone who fits.</p>
+                </article>
+
+                <article class="flow-card panel-card p-4">
+                    <span class="flow-step">03</span>
+                    <h3>Chain the momentum</h3>
+                    <p>Use each match to discover your next conversation target.</p>
+                </article>
+            </div>
+        </div>
+    </section>
 </div>
 
 @code {
