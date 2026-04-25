@@ -34,3 +34,14 @@ dotnet run --project SocOps/SocOps.csproj
 - Preserve event-driven updates from `BingoGameService`
 - Reuse utility classes in `wwwroot/css/app.css`
 - Keep changes scoped; avoid unrelated refactors/dependencies
+
+## Design Guide
+
+- Build intentional themes, not default-looking UI; each redesign should have a clear visual concept.
+- Define and use CSS variables in `SocOps/wwwroot/css/app.css` for palette, contrast, and reusable theme tokens.
+- Prefer expressive typography (avoid generic default stacks) while keeping readability strong on mobile.
+- Use layered backgrounds (gradients, subtle patterns, depth) instead of flat single-color screens.
+- Add meaningful motion at key moments (screen entry, bingo celebration, state change) and keep it lightweight.
+- Preserve gameplay clarity first: square text must remain legible, marked/winning/free states must be visually distinct.
+- Respect existing component boundaries in `SocOps/Components/` and avoid coupling visual changes to game logic.
+- Keep responsive behavior explicit for small screens; verify board fit, tap targets, and text wrapping.
