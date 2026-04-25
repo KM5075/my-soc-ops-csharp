@@ -1,13 +1,13 @@
-<div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-xl p-6 max-w-xs w-full text-center shadow-xl animate-[bounce_0.5s_ease-out]">
-        <div class="text-5xl mb-4">🎉</div>
-        <h2 class="text-3xl font-bold text-amber-500 mb-2">BINGO!</h2>
-        <p class="text-gray-600 mb-6">You completed a line!</p>
+<div class="fixed inset-0 modal-backdrop flex items-center justify-center p-4 z-50">
+    <div class="modal-panel rounded-xl p-6 max-w-xs w-full text-center animate-[bounce_0.5s_ease-out]">
+        <div class="text-5xl mb-4">LOCK</div>
+        <h2 class="text-3xl font-bold mb-2">BINGO CONFIRMED</h2>
+        <p class="mb-6">A complete line has been validated.</p>
 
         <button
             @onclick="OnDismiss"
-            class="w-full bg-accent text-white font-semibold py-3 px-6 rounded-lg active:bg-accent-light transition-colors">
-            Keep Playing
+            class="launch-button w-full py-3 px-6 rounded-lg transition-colors">
+            Continue Mission
         </button>
     </div>
 </div>

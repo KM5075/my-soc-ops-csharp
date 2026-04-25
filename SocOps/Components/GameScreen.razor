@@ -1,32 +1,30 @@
 @using SocOps.Models
 
-<div class="flex flex-col min-h-full bg-gray-50">
-    <!-- Header -->
-    <header class="flex items-center justify-between p-3 bg-white border-b border-gray-200">
+<div class="theme-shell game-shell flex flex-col min-h-full">
+    <div class="theme-grid-overlay" aria-hidden="true"></div>
+
+    <header class="game-header panel-card flex items-center justify-between p-3">
         <button
             @onclick="OnReset"
-            class="text-gray-500 text-sm px-3 py-1.5 rounded active:bg-gray-100">
-            ← Back
+            class="ghost-button text-sm px-3 py-1.5 rounded">
+            Back
         </button>
-        <h1 class="font-bold text-gray-900">Soc Ops</h1>
+        <h1 class="font-bold">Soc Ops</h1>
         <div class="w-16"></div>
     </header>
 
-    <!-- Instructions -->
-    <p class="text-center text-gray-500 text-sm py-2 px-4">
-        Tap a square when you find someone who matches it.
+    <p class="transmission-banner text-center text-sm py-2 px-4">
+        Confirm each match by marking the related square.
     </p>
 
-    <!-- Bingo indicator -->
     @if (HasBingo)
     {
-        <div class="bg-amber-100 text-amber-800 text-center py-2 font-semibold text-sm">
-            🎉 BINGO! You got a line!
+        <div class="bingo-alert text-center py-2 font-semibold text-sm">
+            BINGO LOCKED: A full line has been secured.
         </div>
     }
 
-    <!-- Board -->
-    <div class="flex-1 flex items-center justify-center p-3">
+    <div class="flex-1 flex items-center justify-center p-3 board-stage">
         <BingoBoard
             Board="@Board"
             WinningSquareIds="@WinningSquareIds"
