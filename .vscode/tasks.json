@@ -30,6 +30,13 @@
 			"command": "dotnet build SocOps/SocOps.csproj",
 			"group": "build",
 			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "dotnet: test",
+			"type": "shell",
+			"command": "dotnet test SocOps.Tests/SocOps.Tests.csproj --logger console;verbosity=normal",
+			"group": "test",
+			"problemMatcher": "$msCompile"
 		}
 	]
 }
