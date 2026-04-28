@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using SocOps.Models;
 using SocOps.Services;
 using Xunit;
@@ -15,7 +16,7 @@ public class BingoGameServiceContractTests
 
         var modeProperty = type.GetProperty("CurrentMode");
         Assert.NotNull(modeProperty);
-        Assert.Equal(typeof(PlayMode), modeProperty!.PropertyType);
+        Assert.Equal("PlayMode", modeProperty!.PropertyType.Name);
 
         var startScavenger = type.GetMethod("StartScavengerGame");
         Assert.NotNull(startScavenger);
@@ -38,5 +39,18 @@ public class BingoGameServiceContractTests
         Assert.Equal(typeof(int), markedCount!.PropertyType);
         Assert.Equal(typeof(int), totalCount!.PropertyType);
         Assert.Equal(typeof(int), progressPercent!.PropertyType);
+    }
+
+    [Fact]
+    public void Service_Should_Skip_Persistence_For_Scavenger_Mode()
+    {
+        var type = typeof(BingoGameService);
+        var saveMethod = type.GetMethod("SaveGameStateAsync", BindingFlags.Instance | BindingFlags.NonPublic);
+
+        Assert.NotNull(saveMethod);
+
+        var source = System.IO.File.ReadAllText(PathHelper.InRepo("SocOps", "Services", "BingoGameService.cs"));
+        Assert.Contains("CurrentMode == PlayMode.ScavengerHunt", source);
+        Assert.Contains("localStorage.removeItem", source);
     }
 }

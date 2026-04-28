@@ -38,4 +38,16 @@ public class ScavengerUiContractTests
         Assert.Contains("role=\"progressbar\"", source);
         Assert.Contains("ProgressPercent", source);
     }
+
+    [Fact]
+    public void AppCss_Should_Define_Scavenger_List_And_Progress_Meter_Styles()
+    {
+        var path = PathHelper.InRepo("SocOps", "wwwroot", "css", "app.css");
+        var source = File.ReadAllText(path);
+
+        Assert.Contains(".scavenger-list", source);
+        Assert.Contains(".scavenger-item", source);
+        Assert.Contains(".progress-track", source);
+        Assert.Contains(".progress-fill", source);
+    }
 }
