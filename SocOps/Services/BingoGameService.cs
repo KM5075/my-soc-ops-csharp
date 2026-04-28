@@ -33,24 +33,18 @@ public class BingoGameService
         await LoadGameStateAsync();
     }
 
-    public void StartGame()
-    {
-        CurrentMode = PlayMode.Bingo;
-        Board = BingoLogicService.GenerateBoard();
-        WinningLine = null;
-        CurrentGameState = GameState.Playing;
-        ShowBingoModal = false;
-        _ = SaveGameStateAsync(); // Fire and forget
-        NotifyStateChanged();
-    }
+    public void StartGame() => BeginGame(PlayMode.Bingo, GameState.Playing);
 
-    public void StartScavengerGame()
+    public void StartScavengerGame() => BeginGame(PlayMode.ScavengerHunt, GameState.ScavengerPlaying);
+
+    private void BeginGame(PlayMode mode, GameState initialState)
     {
-        CurrentMode = PlayMode.ScavengerHunt;
+        CurrentMode = mode;
         Board = BingoLogicService.GenerateBoard();
         WinningLine = null;
-        CurrentGameState = GameState.ScavengerPlaying;
+        CurrentGameState = initialState;
         ShowBingoModal = false;
+        _ = SaveGameStateAsync();
         NotifyStateChanged();
     }
 
@@ -65,15 +59,10 @@ public class BingoGameService
             if (bingo != null)
             {
                 WinningLine = bingo;
-                if (CurrentMode == PlayMode.ScavengerHunt)
-                {
-                    CurrentGameState = GameState.ScavengerBingo;
-                }
-                else
-                {
-                    CurrentGameState = GameState.Bingo;
-                    ShowBingoModal = true;
-                }
+                CurrentGameState = CurrentMode == PlayMode.ScavengerHunt
+                    ? GameState.ScavengerBingo
+                    : GameState.Bingo;
+                ShowBingoModal = CurrentMode != PlayMode.ScavengerHunt;
             }
         }
 

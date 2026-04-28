@@ -38,7 +38,7 @@
         <ul class="scavenger-list" aria-label="Scavenger hunt prompts">
             @foreach (var square in Board)
             {
-                <li class="scavenger-item @(square.IsMarked ? "is-checked" : "")">
+                <li class="@ItemClass(square)">
                     <label>
                         <input
                             type="checkbox"
@@ -61,4 +61,7 @@
     [Parameter] public int ProgressPercent { get; set; }
     [Parameter] public EventCallback<int> OnSquareClick { get; set; }
     [Parameter] public EventCallback OnReset { get; set; }
+
+    private static string ItemClass(BingoSquareData square) =>
+        square.IsMarked ? "scavenger-item is-checked" : "scavenger-item";
 }
