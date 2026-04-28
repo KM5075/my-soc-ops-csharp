@@ -8,7 +8,11 @@
 
 @if (GameService.CurrentGameState == GameState.Start)
 {
-    <StartScreen OnStartBingo="@GameService.StartGame" OnStartScavenger="@GameService.StartScavengerGame" />
+    <StartScreen OnStartBingo="@GameService.StartGame" OnStartScavenger="@GameService.StartScavengerGame" OnStartCardDeck="@GameService.StartCardDeckGame" />
+}
+else if (GameService.CurrentMode == PlayMode.CardDeck)
+{
+    <CardDeckScreen OnReset="@GameService.ResetGame" />
 }
 else if (GameService.CurrentMode == PlayMode.ScavengerHunt)
 {

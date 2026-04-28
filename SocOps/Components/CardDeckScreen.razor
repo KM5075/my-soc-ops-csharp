@@ -1,0 +1,123 @@
+@using SocOps.Data
+
+<div class="theme-shell card-deck-shell flex flex-col min-h-full">
+    <div class="theme-grid-overlay" aria-hidden="true"></div>
+
+    <header class="game-header panel-card flex items-center justify-between p-3">
+        <button @onclick="OnReset" class="ghost-button text-sm px-3 py-1.5 rounded">
+            Back
+        </button>
+        <h1 class="font-bold">Card Deck</h1>
+        <div class="w-16"></div>
+    </header>
+
+    <p class="transmission-banner text-center text-sm py-2 px-4">
+        Tap the card to reveal your prompt. Shuffle for a new one.
+    </p>
+
+    <div class="card-deck-stage flex flex-col items-center justify-center flex-1 p-6 gap-6">
+
+        <div class="card-deck-counter">
+            <span class="counter-label">DRAW #@_drawCount</span>
+        </div>
+
+        <!-- Card flip container -->
+        <div class="card-flip-wrap @(_isFlipped ? "is-flipped" : "")"
+             @onclick="HandleCardClick"
+             role="button"
+             tabindex="0"
+             aria-label="@(_isFlipped ? CurrentQuestion : "Tap to reveal your card")"
+             @onkeydown="HandleKeyDown">
+            <div class="card-flip-inner">
+                <!-- Back face (deck view) -->
+                <div class="card-face card-back" aria-hidden="@_isFlipped.ToString().ToLower()">
+                    <div class="card-back-pattern" aria-hidden="true">
+                        <div class="card-back-logo">SOC OPS</div>
+                        <div class="card-back-sub">tap to reveal</div>
+                    </div>
+                </div>
+                <!-- Front face (question) -->
+                <div class="card-face card-front" aria-hidden="@(!_isFlipped).ToString().ToLower()">
+                    <div class="card-front-content">
+                        <p class="card-prompt-label">Find someone who…</p>
+                        <p class="card-question">@CurrentQuestion</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="card-deck-actions flex gap-3">
+            @if (_isFlipped)
+            {
+                <button class="deck-action-button" @onclick="Shuffle">
+                    Shuffle New Card
+                </button>
+            }
+        </div>
+
+        <!-- Remaining count -->
+        <div class="card-deck-remaining">
+            <span>@_remaining.Count remaining in deck</span>
+        </div>
+
+    </div>
+</div>
+
+@code {
+    [Parameter] public EventCallback OnReset { get; set; }
+
+    private bool _isFlipped = false;
+    private int _drawCount = 0;
+    private string CurrentQuestion { get; set; } = string.Empty;
+    private List<string> _remaining = new();
+
+    protected override void OnInitialized()
+    {
+        ResetDeck();
+    }
+
+    private void ResetDeck()
+    {
+        _remaining = Questions.QuestionsList
+            .Where(q => q != Questions.FREE_SPACE)
+            .OrderBy(_ => Random.Shared.Next())
+            .ToList();
+    }
+
+    private void HandleCardClick()
+    {
+        if (!_isFlipped)
+        {
+            DrawCard();
+        }
+    }
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" || e.Key == " ")
+        {
+            HandleCardClick();
+        }
+    }
+
+    private void DrawCard()
+    {
+        if (_remaining.Count == 0)
+        {
+            ResetDeck();
+        }
+
+        var idx = Random.Shared.Next(_remaining.Count);
+        CurrentQuestion = _remaining[idx];
+        _remaining.RemoveAt(idx);
+        _drawCount++;
+        _isFlipped = true;
+    }
+
+    private void Shuffle()
+    {
+        _isFlipped = false;
+        // Small delay feel — next tap draws next card
+    }
+}

@@ -682,6 +682,200 @@ button:disabled {
     transform: translateY(1px);
 }
 
+/* ===== CARD DECK MODE ===== */
+
+.carddeck-launch-button {
+    background: linear-gradient(135deg, #3b1a6e 0%, #2a0f52 100%);
+    color: #e8d5ff;
+    font-family: "Audiowide", cursive;
+    letter-spacing: 0.04em;
+    border-radius: 0.65rem;
+    border: 1px solid rgba(186, 130, 255, 0.42);
+    box-shadow: 0 0 14px rgba(186, 130, 255, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    transition: transform 0.15s ease, filter 0.2s ease;
+    cursor: pointer;
+}
+
+.carddeck-launch-button:hover {
+    filter: brightness(1.12);
+}
+
+.carddeck-launch-button:active {
+    transform: translateY(1px);
+}
+
+.card-deck-shell {
+    background: var(--theme-bg);
+}
+
+.card-deck-stage {
+    gap: 1.5rem;
+}
+
+.card-deck-counter {
+    text-align: center;
+}
+
+.counter-label {
+    font-family: "Audiowide", cursive;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--theme-muted);
+    text-transform: uppercase;
+}
+
+/* Card Flip */
+.card-flip-wrap {
+    width: min(340px, 90vw);
+    height: min(460px, 70vh);
+    perspective: 1200px;
+    cursor: pointer;
+    outline: none;
+}
+
+.card-flip-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-flip-wrap.is-flipped .card-flip-inner {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    inset: 0;
+    border-radius: 1.25rem;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Card Back */
+.card-back {
+    background: linear-gradient(145deg, #1e1040 0%, #150b30 100%);
+    border: 1px solid rgba(186, 130, 255, 0.35);
+    box-shadow:
+        0 0 30px rgba(186, 130, 255, 0.12),
+        0 8px 32px rgba(0, 0, 0, 0.5),
+        inset 0 0 60px rgba(186, 130, 255, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-back-pattern {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    user-select: none;
+}
+
+.card-back-logo {
+    font-family: "Audiowide", cursive;
+    font-size: 1.5rem;
+    letter-spacing: 0.2em;
+    color: rgba(186, 130, 255, 0.55);
+    text-shadow: 0 0 20px rgba(186, 130, 255, 0.3);
+}
+
+.card-back-sub {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(186, 130, 255, 0.35);
+    animation: card-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes card-pulse {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 0.75; }
+}
+
+/* Card Front */
+.card-front {
+    background: linear-gradient(145deg, #ffffff 0%, #f0eaff 100%);
+    border: 1px solid rgba(186, 130, 255, 0.3);
+    box-shadow:
+        0 0 30px rgba(186, 130, 255, 0.2),
+        0 8px 32px rgba(0, 0, 0, 0.45);
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.card-front-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.card-prompt-label {
+    font-family: "Audiowide", cursive;
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #9b6cc8;
+}
+
+.card-question {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1a0a30;
+    line-height: 1.4;
+}
+
+.card-deck-actions {
+    min-height: 2.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.deck-action-button {
+    background: linear-gradient(135deg, #3b1a6e 0%, #2a0f52 100%);
+    color: #e8d5ff;
+    font-family: "Audiowide", cursive;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    padding: 0.65rem 1.75rem;
+    border-radius: 0.6rem;
+    border: 1px solid rgba(186, 130, 255, 0.4);
+    box-shadow: 0 0 14px rgba(186, 130, 255, 0.15);
+    cursor: pointer;
+    transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.deck-action-button:hover {
+    filter: brightness(1.15);
+}
+
+.deck-action-button:active {
+    transform: translateY(1px);
+}
+
+.card-deck-remaining {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--theme-muted);
+    text-transform: uppercase;
+}
+
+@media (max-width: 480px) {
+    .card-flip-wrap {
+        height: min(400px, 62vh);
+    }
+
+    .card-question {
+        font-size: 1.15rem;
+    }
+}
+
 .scavenger-progress {
     margin: 0 0.75rem;
     border-radius: 0.7rem;

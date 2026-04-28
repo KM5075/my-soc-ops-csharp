@@ -37,6 +37,8 @@ public class BingoGameService
 
     public void StartScavengerGame() => BeginGame(PlayMode.ScavengerHunt, GameState.ScavengerPlaying);
 
+    public void StartCardDeckGame() => BeginGame(PlayMode.CardDeck, GameState.CardDeckPlaying);
+
     private void BeginGame(PlayMode mode, GameState initialState)
     {
         CurrentMode = mode;
@@ -115,7 +117,7 @@ public class BingoGameService
     {
         try
         {
-            if (CurrentMode == PlayMode.ScavengerHunt)
+            if (CurrentMode == PlayMode.ScavengerHunt || CurrentMode == PlayMode.CardDeck)
             {
                 await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", STORAGE_KEY);
                 return;

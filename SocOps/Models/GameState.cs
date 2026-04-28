@@ -6,5 +6,6 @@ public enum GameState
     Playing,
     Bingo,
     ScavengerPlaying,
-    ScavengerBingo
+    ScavengerBingo,
+    CardDeckPlaying
 }

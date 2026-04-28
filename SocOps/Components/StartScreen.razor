@@ -43,6 +43,11 @@
                         class="scavenger-launch-button landing-cta px-8 py-4 text-lg">
                         Start Scavenger Hunt
                     </button>
+                    <button
+                        @onclick="OnStartCardDeck"
+                        class="carddeck-launch-button landing-cta px-8 py-4 text-lg">
+                        Card Deck Shuffle
+                    </button>
                 </div>
                 <p class="cta-note">Best for meetups, workshops, and team socials.</p>
             </div>
@@ -104,4 +109,7 @@
 
     [Parameter]
     public EventCallback OnStartScavenger { get; set; }
+
+    [Parameter]
+    public EventCallback OnStartCardDeck { get; set; }
 }
