@@ -1,0 +1,64 @@
+@using SocOps.Models
+
+<div class="theme-shell game-shell flex flex-col min-h-full">
+    <div class="theme-grid-overlay" aria-hidden="true"></div>
+
+    <header class="game-header panel-card flex items-center justify-between p-3">
+        <button
+            @onclick="OnReset"
+            class="ghost-button text-sm px-3 py-1.5 rounded">
+            Back
+        </button>
+        <h1 class="font-bold">Scavenger Hunt</h1>
+        <div class="w-16"></div>
+    </header>
+
+    <p class="transmission-banner text-center text-sm py-2 px-4">
+        Find someone who fits each prompt. Check them off as you go.
+    </p>
+
+    <section class="panel-card scavenger-progress p-4">
+        <div class="scavenger-progress-head">
+            <span>Progress</span>
+            <strong>@MarkedCount / @TotalCount (@ProgressPercent%)</strong>
+        </div>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="@ProgressPercent" aria-label="Scavenger hunt progress">
+            <div class="progress-fill" style="width: @(ProgressPercent)%"></div>
+        </div>
+    </section>
+
+    @if (HasLine)
+    {
+        <div class="bingo-alert text-center py-2 font-semibold text-sm">
+            LINE SECURED: You completed a full line of 5 prompts.
+        </div>
+    }
+
+    <section class="panel-card scavenger-list-wrap p-4">
+        <ul class="scavenger-list" aria-label="Scavenger hunt prompts">
+            @foreach (var square in Board)
+            {
+                <li class="scavenger-item @(square.IsMarked ? "is-checked" : "")">
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked="@square.IsMarked"
+                            disabled="@square.IsFreeSpace"
+                            @onclick="() => OnSquareClick.InvokeAsync(square.Id)" />
+                        <span>@square.Text</span>
+                    </label>
+                </li>
+            }
+        </ul>
+    </section>
+</div>
+
+@code {
+    [Parameter] public List<BingoSquareData> Board { get; set; } = new();
+    [Parameter] public bool HasLine { get; set; }
+    [Parameter] public int MarkedCount { get; set; }
+    [Parameter] public int TotalCount { get; set; }
+    [Parameter] public int ProgressPercent { get; set; }
+    [Parameter] public EventCallback<int> OnSquareClick { get; set; }
+    [Parameter] public EventCallback OnReset { get; set; }
+}

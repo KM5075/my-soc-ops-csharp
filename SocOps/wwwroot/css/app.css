@@ -653,6 +653,134 @@ button:disabled {
     }
 }
 
+/* ── Scavenger Hunt ─────────────────────────────────── */
+
+.mode-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.scavenger-launch-button {
+    background: linear-gradient(135deg, #1e6b52 0%, #14523d 100%);
+    color: #d0fff0;
+    font-family: "Audiowide", cursive;
+    letter-spacing: 0.04em;
+    border-radius: 0.65rem;
+    border: 1px solid rgba(82, 246, 216, 0.42);
+    box-shadow: 0 0 14px rgba(82, 246, 216, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    transition: transform 0.15s ease, filter 0.2s ease;
+    cursor: pointer;
+}
+
+.scavenger-launch-button:hover {
+    filter: brightness(1.1);
+}
+
+.scavenger-launch-button:active {
+    transform: translateY(1px);
+}
+
+.scavenger-progress {
+    margin: 0 0.75rem;
+    border-radius: 0.7rem;
+}
+
+.scavenger-progress-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.65rem;
+    font-size: 0.85rem;
+    color: var(--theme-muted);
+}
+
+.scavenger-progress-head strong {
+    color: var(--theme-cyan);
+    font-family: "Audiowide", cursive;
+    font-size: 0.82rem;
+}
+
+.progress-track {
+    height: 0.5rem;
+    border-radius: 999px;
+    background: rgba(82, 246, 216, 0.12);
+    border: 1px solid rgba(82, 246, 216, 0.2);
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--theme-cyan) 0%, var(--theme-lime) 100%);
+    transition: width 0.3s ease;
+}
+
+.scavenger-list-wrap {
+    margin: 0 0.75rem 0.75rem;
+    border-radius: 0.7rem;
+    overflow-y: auto;
+}
+
+.scavenger-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.scavenger-item {
+    border: 1px solid rgba(121, 180, 171, 0.28);
+    border-radius: 0.6rem;
+    background: linear-gradient(180deg, rgba(17, 42, 50, 0.92) 0%, rgba(13, 30, 36, 0.92) 100%);
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.scavenger-item label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    color: var(--theme-ink);
+    font-size: 0.88rem;
+    line-height: 1.5;
+}
+
+.scavenger-item input[type="checkbox"] {
+    flex-shrink: 0;
+    margin-top: 0.18rem;
+    width: 1.05rem;
+    height: 1.05rem;
+    accent-color: var(--theme-lime);
+    cursor: pointer;
+}
+
+.scavenger-item.is-checked {
+    border-color: rgba(157, 255, 110, 0.6);
+    background: linear-gradient(180deg, rgba(45, 87, 33, 0.88) 0%, rgba(34, 66, 25, 0.92) 100%);
+}
+
+.scavenger-item.is-checked label {
+    color: #dfffcc;
+}
+
+@media (max-width: 640px) {
+    .scavenger-progress,
+    .scavenger-list-wrap {
+        margin-left: 0.45rem;
+        margin-right: 0.45rem;
+    }
+
+    .scavenger-item label {
+        font-size: 0.82rem;
+        padding: 0.65rem 0.8rem;
+    }
+}
+
 #blazor-error-ui {
     color-scheme: light only;
     background: lightyellow;

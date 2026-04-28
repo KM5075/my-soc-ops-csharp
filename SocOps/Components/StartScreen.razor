@@ -32,11 +32,18 @@
             </div>
 
             <div class="landing-actions mb-6">
-                <button
-                    @onclick="OnStart"
-                    class="launch-button landing-cta px-8 py-4 text-lg">
-                    Start the mission
-                </button>
+                <div class="mode-actions">
+                    <button
+                        @onclick="OnStartBingo"
+                        class="launch-button landing-cta px-8 py-4 text-lg">
+                        Start Bingo Board
+                    </button>
+                    <button
+                        @onclick="OnStartScavenger"
+                        class="scavenger-launch-button landing-cta px-8 py-4 text-lg">
+                        Start Scavenger Hunt
+                    </button>
+                </div>
                 <p class="cta-note">Best for meetups, workshops, and team socials.</p>
             </div>
         </div>
@@ -93,5 +100,8 @@
 
 @code {
     [Parameter]
-    public EventCallback OnStart { get; set; }
+    public EventCallback OnStartBingo { get; set; }
+
+    [Parameter]
+    public EventCallback OnStartScavenger { get; set; }
 }

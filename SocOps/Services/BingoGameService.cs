@@ -12,10 +12,14 @@ public class BingoGameService
     private readonly IJSRuntime _jsRuntime;
 
     public GameState CurrentGameState { get; private set; } = GameState.Start;
+    public PlayMode CurrentMode { get; private set; } = PlayMode.Bingo;
     public List<BingoSquareData> Board { get; private set; } = new();
     public BingoLine? WinningLine { get; private set; }
     public HashSet<int> WinningSquareIds => BingoLogicService.GetWinningSquareIds(WinningLine);
     public bool ShowBingoModal { get; private set; }
+    public int MarkedCount => Board.Count(s => s.IsMarked);
+    public int TotalCount => Board.Count;
+    public int ProgressPercent => TotalCount == 0 ? 0 : (int)Math.Round((double)MarkedCount / TotalCount * 100);
 
     public event Action? OnStateChanged;
 
@@ -31,11 +35,22 @@ public class BingoGameService
 
     public void StartGame()
     {
+        CurrentMode = PlayMode.Bingo;
         Board = BingoLogicService.GenerateBoard();
         WinningLine = null;
         CurrentGameState = GameState.Playing;
         ShowBingoModal = false;
         _ = SaveGameStateAsync(); // Fire and forget
+        NotifyStateChanged();
+    }
+
+    public void StartScavengerGame()
+    {
+        CurrentMode = PlayMode.ScavengerHunt;
+        Board = BingoLogicService.GenerateBoard();
+        WinningLine = null;
+        CurrentGameState = GameState.ScavengerPlaying;
+        ShowBingoModal = false;
         NotifyStateChanged();
     }
 
@@ -50,8 +65,15 @@ public class BingoGameService
             if (bingo != null)
             {
                 WinningLine = bingo;
-                CurrentGameState = GameState.Bingo;
-                ShowBingoModal = true;
+                if (CurrentMode == PlayMode.ScavengerHunt)
+                {
+                    CurrentGameState = GameState.ScavengerBingo;
+                }
+                else
+                {
+                    CurrentGameState = GameState.Bingo;
+                    ShowBingoModal = true;
+                }
             }
         }
 
@@ -62,6 +84,7 @@ public class BingoGameService
     public void ResetGame()
     {
         CurrentGameState = GameState.Start;
+        CurrentMode = PlayMode.Bingo;
         Board = new();
         WinningLine = null;
         ShowBingoModal = false;
@@ -103,6 +126,12 @@ public class BingoGameService
     {
         try
         {
+            if (CurrentMode == PlayMode.ScavengerHunt)
+            {
+                await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", STORAGE_KEY);
+                return;
+            }
+
             var data = new StoredGameData
             {
                 Version = STORAGE_VERSION,
@@ -123,6 +152,7 @@ public class BingoGameService
     {
         public int Version { get; set; }
         public GameState GameState { get; set; }
+        public PlayMode Mode { get; set; } = PlayMode.Bingo;
         public List<BingoSquareData> Board { get; set; } = new();
         public BingoLine? WinningLine { get; set; }
     }
